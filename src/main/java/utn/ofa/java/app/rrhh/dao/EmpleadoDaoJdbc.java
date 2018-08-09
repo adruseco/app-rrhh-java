@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +46,12 @@ public class EmpleadoDaoJdbc implements EmpleadoDao {
             ps.setString(1, e.getNombre());
             ps.setString(2, e.getCorreoElectronico());
             ps.setString(3, e.getCuil());
-            ps.setDate(4, (java.sql.Date) new Date(e.getFechaDeIngreso().getTime()));
+        //  if (e.getFechaDeIngreso() == null) {
+          //        e.setFechaDeIngreso(new java.util.Date());
+           //   }  
+            //Date auxDate = null;
+           // auxDate = new Date(e.getFechaIngreso().getTime());
+            //  ps.setDate(4,auxDate);
             ps.setInt(5, e.getHorasTrabajadas());
             if(e.esEfectivo() ){
                 Efectivo empEf = (Efectivo) e;
@@ -124,7 +129,7 @@ public class EmpleadoDaoJdbc implements EmpleadoDao {
           Connection conn = ConexionJDBC.getConexion();
           Empleado e = null;
         try (PreparedStatement stm = conn.prepareStatement(BUSCAR_EMPLEADO)) {
-             stm.setInt(1, id);
+//             stm.setInt(1, id);
              ResultSet rs = stm.executeQuery();
              while(rs.next()){
                  Integer i = rs.getInt("tipo_empleado");
